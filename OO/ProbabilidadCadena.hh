@@ -21,12 +21,12 @@ class  ProbabilidadCadena{
 	private:
     	std::string archivodeentrada; //nombre del archivo de entrada
 		int numerodeestados; //numero de estados
-    	gsl_matrix* M;
-    	char* estados;
-    	int * cadenaAnalizada;
-    	int largoCadena;
-		std::string cadena;
-		int cantidadEstados();
+    	gsl_matrix* M;	//matriz de transición
+    	char* estados;	//Estados utilizados
+    	int * cadenaAnalizada; // cadena transformada en enteros
+    	int largoCadena; //Largo de la cadena a analizar
+		std::string cadena; // cadena ingresada
+		int cantidadEstados(); 
 		int * leerCadena();
     public:
     	ProbabilidadCadena(std::string, std::string); //inicializar estructura de  CM y pasar cantidad de estados

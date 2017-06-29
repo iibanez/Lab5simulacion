@@ -2,7 +2,15 @@
 #include "ProbabilidadCadena.hh"
 
 using namespace std;
-
+/*
+##Clase que permitirá la obtención de la probabilidad de tener una secuencia
+* en el adn
+* 
+* Constructor
+* Entrada: 
+* _archivodeentrada: Nombre del archivo que contiene la matriz de transiciones asociadas a la cadena de markov
+* _cadena: cadena que será utilizada para encontrar la probabilidad ejemplo "AATTAACCGT"
+* */
 ProbabilidadCadena::ProbabilidadCadena(string _archivodeentrada, string _cadena){
 	archivodeentrada = _archivodeentrada;
 	cadena = _cadena;
@@ -18,6 +26,12 @@ ProbabilidadCadena::ProbabilidadCadena(string _archivodeentrada, string _cadena)
 	cadenaAnalizada = leerCadena();
 }
 
+/*
+* Esta función encargada de leer los estados desde al archivo de entrada
+* 
+* Salida:
+*   numerodeestados: corresponde a la cantidad de estados que contiene el archivo
+*/
 int ProbabilidadCadena::cantidadEstados(){
     char cadena[30] = {'\0'};
     // Abre un fichero de entrada
@@ -42,6 +56,9 @@ int ProbabilidadCadena::cantidadEstados(){
     return cantidadestados;    
 }
 
+/*
+* Es leido el archivo de entrada y son pasados las probabilidades a una matriz de transicion
+*/
 void ProbabilidadCadena::lecturaArchivo(){
     
     ifstream fe(archivodeentrada.c_str());
@@ -79,6 +96,9 @@ void ProbabilidadCadena::lecturaArchivo(){
     fe.close();
 }
 
+/* Función utilizada para obtener las probabilides de la matriz de transición
+ * y finalmente obtener la probabilidad de la cadena solicitada
+ * */
 float ProbabilidadCadena::obtenerProbabilidades(){
 		float probabilidad = 1;
 		for(int i = 0; i< largoCadena; i++){
@@ -92,8 +112,11 @@ float ProbabilidadCadena::obtenerProbabilidades(){
 		return probabilidad;
 	}
 	
+/* Esta función es utilizada para transforma la cadena en forma de string
+ * a una cadena de enteros, que será aprovechada para acceder a las
+ * probabilidades de la matriz de transformación
+ * */
 int * ProbabilidadCadena::leerCadena(){
-		float probabilidad = 1;
 		 
 		static int * resultado = (int*) malloc(sizeof(int)*cadena.size());
 		int index = 0;
@@ -126,6 +149,10 @@ int * ProbabilidadCadena::leerCadena(){
 		return resultado;
 	}
 
+/*	Función utilizada para mostrar la cadena analizada con lenguaje humano
+ * y no con los números que son manejados en el programa
+ * 
+ * */
 void ProbabilidadCadena::mostrarCadena(){
 	cout << "Largo cadena utilizada:\t" << largoCadena << "\n";
 	cout << "Cadena utilizada:\t";
