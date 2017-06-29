@@ -44,7 +44,7 @@ int main(int argc,char*argv[]){
 	
     pc.mostrarCadena();
         	
-	cout << "\nLa probabilidad de tener la cadena ingresada es de " << pc.obtenerProbabilidades();
+	cout << pc.obtenerProbabilidades();
 	cout << "\n";	
 	return 1;
 	}
