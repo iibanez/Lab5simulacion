@@ -17,16 +17,16 @@ class CadenaMarkov {
 	};
 
 	private:
-		int numerodeestados; //numero de estados
-		int numeroTotalEstados; //numero de combinaciones entre los estados
+		  int numerodeestados; //numero de estados
+		  int numeroTotalEstados; //numero de combinaciones entre los estados
     	std::string archivodeentrada; //nombre del archivo de entrada
     	std::string archivodesalida; //nombre del archivo de salida
     	struct CM cm; //estructura de cadena de markov
-    public:
+  public:
     	CadenaMarkov(int, std::string, std::string); //inicializar estructura de  CM y pasar cantidad de estados
-    	void findPosicion(char anterior, char actual); 
-    	void lecturaArchivo(); 
-		void escrituraArchivo();
+    	void findPosicion(char anterior, char actual); //utilizada para buscar donde se almacena la transicion y aumentar en 1 el contador
+    	void lecturaArchivo();  //lectura del archivo y crear cadena de markov
+		  void escrituraArchivo(); //la cadena de markov es escriba en un archivo
 
 };
 

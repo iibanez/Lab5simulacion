@@ -3,6 +3,14 @@
 
 using namespace std;
 
+/*
+* Esta función corresponde al constructor de la clase y es la encargada de inicializar todos las 
+* variables
+*
+* Entrada:
+*   _archivodeentrada: corresponde al nombre del archivo de entrada
+*   _archivodesalida: corresponde al nombre del archivo de salida
+*/
 MatrizEstacionaria::MatrizEstacionaria(string _archivodeentrada, string _archivodesalida){
 	archivodeentrada = _archivodeentrada;
 	archivodesalida = _archivodesalida;
@@ -15,6 +23,12 @@ MatrizEstacionaria::MatrizEstacionaria(string _archivodeentrada, string _archivo
     solucion = gsl_vector_alloc(numerodeestados);
 }
 
+/*
+* Esta función encargada de leer los estados desde al archivo de entrada
+* 
+* Salida:
+*   numerodeestados: corresponde a la cantidad de estados que contiene el archivo
+*/
 int MatrizEstacionaria::cantidadEstados(){
     char cadena[30] = {'\0'};
     // Abre un fichero de entrada
@@ -39,7 +53,9 @@ int MatrizEstacionaria::cantidadEstados(){
     return numerodeestados;    
 }
     
-
+/*
+* Es leido el archivo de entrada y son pasados las probabilidades a una matriz de transicion
+*/
 void MatrizEstacionaria::lecturaArchivo(){
     
     ifstream fe(archivodeentrada);
@@ -77,13 +93,16 @@ void MatrizEstacionaria::lecturaArchivo(){
     fe.close();
 }
 
+/*
+* El sistema de ecuaciones es resuelto
+*/
 void MatrizEstacionaria::solucionSistema(){
     
     gsl_vector *b;
     gsl_permutation *p;
     int s;
     
-    // Create the vector and the matrix
+    // crear vector de estados
     b = gsl_vector_alloc(numerodeestados);
     
     for(int i = 0; i < numerodeestados; i++){
@@ -97,23 +116,19 @@ void MatrizEstacionaria::solucionSistema(){
     
     gsl_vector_set(b, 0, 1.0);
 
-    // Solve the system A x = b
-    // Start by creating a vector to receive the result
-    // and a permutation list to pass to the LU decomposition
-    
+    // resolver sistema A x = b
     p = gsl_permutation_alloc(numerodeestados);
-    
-    // Do the LU decomposition on A and use it to solve the system
-    
     gsl_linalg_LU_decomp(ecuaciones, p, &s);
     gsl_linalg_LU_solve(ecuaciones, p, b, solucion);
     
-    // Clean up
+    // liberar memoria de las matrices
     gsl_vector_free(b);
     gsl_permutation_free(p);
-    gsl_matrix_free(ecuaciones);
 }
 
+/*
+* La solución del sistema de ecuaciones es escrito en el archivo de salida
+*/
 void MatrizEstacionaria::escrituraArchivo(){
     // Crea un fichero de salida
     ofstream fs(archivodesalida); 
