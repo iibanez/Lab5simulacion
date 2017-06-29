@@ -11,3 +11,5 @@ g++ buildmc.cpp -o buildmc
 g++ buildmc.cc CadenaMarkov.cc -o buildcm
 
 g++ pimc.cc MatrizEstacionaria.cc `pkg-config --cflags --libs gsl` -std=c++11 -o pimc
+
+ g++ probmc.cpp `pkg-config --cflags --libs gsl` -std=c++11 -o probmc
