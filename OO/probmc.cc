@@ -1,27 +1,28 @@
-#include "CadenaMarkov.hh"
-
+#include "ProbabilidadCadena.hh"
 #include <unistd.h>
+#define G 0
+#define A 1
+#define T 2
+#define C 3
+
+using namespace std;
 
 int main(int argc,char*argv[]){
-    
-    int numerodeestados;
+	
+	std::string cadena;
     std::string archivodeentrada;
-    std::string archivodesalida;
-
-    opterr = 0;
+	
+	opterr = 0;
     int c;
-
-    while ((c = getopt (argc, argv, ":i:N:o:")) != -1){
+    
+	while ((c = getopt (argc, argv, ":i:s:")) != -1){
         switch (c)
           {
             case 'i':
                 archivodeentrada = optarg;
                 break;
-            case 'N':
-                numerodeestados = atoi(optarg);
-                break;
-            case 'o':
-                archivodesalida = optarg;
+            case 's':
+                cadena = optarg;
                 break;
             case ':':
                 fprintf(stderr, "%s: option '-%c' requires an argument\n",argv[0], optopt);
@@ -33,19 +34,20 @@ int main(int argc,char*argv[]){
                     fprintf (stderr, "Unknown option character `\\x%c'.\n", optopt);
                 return 1;
             default:
-				printf("Se necesita argumento -i archivodeentrada.txt -N numerodeestados -o nombrearchivodesalida.txt"); 
                 abort ();
           }
     }
+	
+	cout << "*\n";
+    ProbabilidadCadena pc(archivodeentrada, cadena);
 
-    //inicializar la cadena de markov
-    CadenaMarkov cm(numerodeestados, archivodeentrada, archivodesalida);
-    
-    //lectura del archivo de entrada
-    cm.lecturaArchivo();
-    
-    //escritura del archivo de salida
-    cm.escrituraArchivo();
-    
-    return 0;
-}
+	cout << "**\n";	
+	pc.lecturaArchivo();
+	
+	cout << "***\n";
+    pc.mostrarCadena();
+        	
+	cout << "\nLa probabilidad de tener la cadena ingresada es de " << pc.obtenerProbabilidades();
+	cout << "\n";	
+	return 1;
+	}
