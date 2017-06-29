@@ -6,12 +6,10 @@ using namespace std;
 ProbabilidadCadena::ProbabilidadCadena(string _archivodeentrada, string _cadena){
 	archivodeentrada = _archivodeentrada;
 	cadena = _cadena;
-	cout << "Se Calcula la cantidad de estados\n";
 	numerodeestados = cantidadEstados();
 	
 	largoCadena = cadena.size();
 	estados = new char[numerodeestados];
-	cout << "Se encuentran correctamente los números de estados\n";
 	for(int i = 0; i < numerodeestados;i++){
 		estados[i] = '\0';
 	}
@@ -96,36 +94,59 @@ float ProbabilidadCadena::obtenerProbabilidades(){
 	
 int * ProbabilidadCadena::leerCadena(){
 		float probabilidad = 1;
-		cout << "La cantidad de elementos es " << cadena.size() << "\n";
 		 
 		static int * resultado = (int*) malloc(sizeof(int)*cadena.size());
+		int index = 0;
 		
 		for(int i = 0; i < cadena.size(); ++i) {
-			cout << cadena[i];
 			char currentState = cadena[i];
 			
 			switch(currentState) {
 				case 'G':
-					resultado[i] = G;
+					resultado[index] = G;
+					index++;
 					break;
 				case 'A':
-					resultado[i] = A;
+					resultado[index] = A;
+					index++;
 					break;
 			   case 'T':
-					resultado[i] = T;
+					resultado[index] = T;
+					index++;
 					break; 
 			   case 'C':
-					resultado[i] = C;
+					resultado[index] = C;
+					index++;
 					break;
 			   default : 
-					printf("ERROR DE LA VIDA");
+					printf("\nCarácter inválido omitido: %c\n",cadena[i]);
+					largoCadena = largoCadena-1;
 			}
 		}
 		return resultado;
 	}
 
 void ProbabilidadCadena::mostrarCadena(){
+	cout << "Largo cadena utilizada:\t" << largoCadena << "\n";
+	cout << "Cadena utilizada:\t";
 	for(int i = 0; i < largoCadena; i++){
-		cout << cadena[i] << " ";
+		switch(cadenaAnalizada[i]){
+			case G:
+				cout << "G";
+				break;
+			case A:
+				cout << "A";
+				break;
+			case T:
+				cout << "T";
+				break; 
+			case C:
+				cout << "C";
+				break;
+			default:
+				printf("Error FATAL");
+				break;
+			}
 		}
+	cout <<"\n";
 	}

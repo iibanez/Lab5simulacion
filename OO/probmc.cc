@@ -41,10 +41,9 @@ int main(int argc,char*argv[]){
     ProbabilidadCadena pc(archivodeentrada, cadena);
 
 	pc.lecturaArchivo();
-	
-    pc.mostrarCadena();
-        	
-	cout << pc.obtenerProbabilidades();
+
+	pc.mostrarCadena();
+	cout << "Probabilidad:\t\t" <<pc.obtenerProbabilidades();
 	cout << "\n";	
 	return 1;
 	}
